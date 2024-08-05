@@ -5,9 +5,21 @@ const cors = require('cors');
 const getQuote=require('./Controllers/getQuote')
 const getCustomers=require('./Controllers/getCustomers')
 const mongoose = require('mongoose');
+const allowedOrigins = ['https://am-premier-dashboard.onrender.com', 'https://am-premier.onrender.com'];
 
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  allowedHeaders: 'Content-Type,Authorization',
+};
 
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.post('/submit-form',getQuote)

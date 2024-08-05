@@ -1,4 +1,3 @@
-const insertFormData= require('./sheetInsert')
 const sendEmail =require('./sendEmail');
 const insertCustomer = require('./insertCustomer');
 
